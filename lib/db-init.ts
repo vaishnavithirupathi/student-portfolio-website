@@ -1,4 +1,3 @@
-import { MongoClient } from 'mongodb';
 import clientPromise from './mongodb';
 
 export async function initializeDatabase() {
