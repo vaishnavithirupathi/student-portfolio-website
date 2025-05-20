@@ -6,9 +6,10 @@ interface ProjectCardProps {
   description: string;
   link?: string;
   technologies?: string;
+  createdAt?: string | Date;
 }
 
-const ProjectCard = ({ _id, title, description, link, technologies }: ProjectCardProps) => {
+const ProjectCard = ({ _id, title, description, link, technologies, createdAt }: ProjectCardProps) => {
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
@@ -65,6 +66,17 @@ const ProjectCard = ({ _id, title, description, link, technologies }: ProjectCar
           >
             View Project
           </a>
+        )}
+        {createdAt && (
+          <p className="text-gray-500 text-sm mt-4">
+            Created on: {typeof createdAt === 'string' && !isNaN(Date.parse(createdAt))
+              ? new Date(createdAt).getFullYear()
+              : (createdAt instanceof Date && !isNaN(createdAt.getTime())
+                  ? createdAt.getFullYear()
+                  : (typeof createdAt === 'string'
+                      ? new Date(createdAt).toISOString().slice(0, 10)
+                      : ''))}
+          </p>
         )}
       </div>
     </div>

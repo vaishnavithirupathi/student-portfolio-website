@@ -96,18 +96,18 @@ export default async function PortfolioPage() {
   const serializedEducation = education.map(serializeDocument);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-900">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
+      <h1 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">
         {user.name}'s Portfolio
       </h1>
 
-      <div className="grid gap-12">
+      <div className="grid gap-8 sm:gap-12">
         <section>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Projects</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Projects</h2>
           {serializedProjects.length === 0 ? (
             <p className="text-gray-500 text-center">No projects added yet.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {serializedProjects.map((project) => (
                 <ProjectCard 
                   key={project._id}
@@ -119,11 +119,11 @@ export default async function PortfolioPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Blog Posts</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Blog Posts</h2>
           {serializedBlogs.length === 0 ? (
             <p className="text-gray-500 text-center">No blog posts added yet.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {serializedBlogs.map((blog) => (
                 <BlogCard 
                   key={blog._id}
@@ -135,11 +135,11 @@ export default async function PortfolioPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Education</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Education</h2>
           {serializedEducation.length === 0 ? (
             <p className="text-gray-500 text-center">No education details added yet.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {serializedEducation.map((edu) => (
                 <EducationCard 
                   key={edu._id}

@@ -46,7 +46,19 @@ const EducationCard = ({ _id, institution, degree, field, startYear, endYear }: 
           {degree} in {field}
         </div>
         <div className="text-sm text-gray-500">
-          {startYear} - {endYear || 'Present'}
+          {startYear && !isNaN(Number(startYear)) && startYear.length === 4
+            ? startYear
+            : (typeof startYear === 'string' && !isNaN(Date.parse(startYear))
+                ? new Date(startYear).getFullYear()
+                : startYear)}
+          {' - '}
+          {endYear
+            ? (!isNaN(Number(endYear)) && endYear.length === 4
+                ? endYear
+                : (typeof endYear === 'string' && !isNaN(Date.parse(endYear))
+                    ? new Date(endYear).getFullYear()
+                    : endYear))
+            : 'Present'}
         </div>
       </div>
     </div>

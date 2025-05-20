@@ -42,11 +42,13 @@ const BlogCard = ({ _id, title, content, createdAt }: BlogCardProps) => {
         </div>
         <p className="text-gray-600 mb-4">{content}</p>
         <div className="text-sm text-gray-500">
-          {new Date(createdAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
+          {typeof createdAt === 'string' && !isNaN(Date.parse(createdAt))
+            ? new Date(createdAt).getFullYear()
+            : (createdAt instanceof Date && !isNaN(createdAt.getTime())
+                ? createdAt.getFullYear()
+                : (typeof createdAt === 'string'
+                    ? new Date(createdAt).toISOString().slice(0, 10)
+                    : ''))}
         </div>
       </div>
     </div>

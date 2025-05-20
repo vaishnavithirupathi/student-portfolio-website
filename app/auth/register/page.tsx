@@ -81,10 +81,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-green-600 text-center">Create Account</h1>
-        
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-100 px-2 sm:px-0">
+      <div className="bg-white p-4 sm:p-8 rounded-lg shadow-lg w-full max-w-xs sm:max-w-md">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-green-600 text-center">Create Account</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -97,11 +96,12 @@ export default function RegisterPage() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-base sm:text-lg py-3 px-4"
               placeholder="John Doe"
+              autoComplete="name"
+              aria-label="Full Name"
             />
           </div>
-
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
@@ -113,11 +113,12 @@ export default function RegisterPage() {
               required
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-base sm:text-lg py-3 px-4"
               placeholder="john@example.com"
+              autoComplete="email"
+              aria-label="Email Address"
             />
           </div>
-
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -129,11 +130,12 @@ export default function RegisterPage() {
               required
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-base sm:text-lg py-3 px-4"
               placeholder="••••••••"
+              autoComplete="new-password"
+              aria-label="Password"
             />
           </div>
-
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               Confirm Password
@@ -145,32 +147,30 @@ export default function RegisterPage() {
               required
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 text-base sm:text-lg py-3 px-4"
               placeholder="••••••••"
+              autoComplete="new-password"
+              aria-label="Confirm Password"
             />
           </div>
-
           {error && (
             <div className="text-red-500 text-sm text-center">
               {error}
             </div>
           )}
-
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400"
+            className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-base sm:text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400 transition-colors"
+            aria-label="Register"
           >
-            {loading ? 'Creating Account...' : 'Create Account'}
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
-
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <div className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{' '}
-          <Link href="/auth/signin" className="text-green-600 hover:text-green-500">
-            Sign in
-          </Link>
-        </p>
+          <Link href="/auth/signin" className="text-green-700 hover:underline">Sign In</Link>
+        </div>
       </div>
     </div>
   );
