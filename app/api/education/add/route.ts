@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, id: result.insertedId });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to add education detail' }, { status: 500 });
   }
 }

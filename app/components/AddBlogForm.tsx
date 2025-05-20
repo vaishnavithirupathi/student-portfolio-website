@@ -28,7 +28,7 @@ export default function AddBlogForm() {
         const data = await res.json();
         alert(data.error || 'Failed to add blog post');
       }
-    } catch (error) {
+    } catch {
       alert('Failed to add blog post');
     }
     setLoading(false);

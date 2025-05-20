@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]/route';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       .toArray();
 
     return NextResponse.json({ blogs });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch blogs' }, { status: 500 });
   }
 }

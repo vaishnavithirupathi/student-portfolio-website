@@ -29,7 +29,7 @@ export default function AddProjectForm() {
         const data = await res.json();
         alert(data.error || 'Failed to add project');
       }
-    } catch (error) {
+    } catch {
       alert('Failed to add project');
     }
     setLoading(false);

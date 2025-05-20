@@ -31,7 +31,7 @@ export default function AddEducationForm() {
         const data = await res.json();
         alert(data.error || 'Failed to add education details');
       }
-    } catch (error) {
+    } catch {
       alert('Failed to add education details');
     }
     setLoading(false);

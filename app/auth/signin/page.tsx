@@ -31,7 +31,7 @@ export default function SignInPage() {
         router.push('/portfolio');
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       setError('An error occurred during sign in');
     }
     setLoading(false);

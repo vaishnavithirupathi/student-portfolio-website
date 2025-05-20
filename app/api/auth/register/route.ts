@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       createdAt: new Date(),
     });
     return NextResponse.json({ success: true, id: result.insertedId });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to register user' }, { status: 500 });
   }
 }
