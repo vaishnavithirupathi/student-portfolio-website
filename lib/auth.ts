@@ -33,8 +33,11 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name,
           };
-        } catch (error: any) {
-          throw new Error(error.message || 'Authentication failed');
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            throw new Error(error.message || 'Authentication failed');
+          }
+          throw new Error('Authentication failed');
         }
       },
     }),
@@ -55,8 +58,8 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).id = token.id;
+      if (session.user && typeof token.id === 'string') {
+        (session.user as { id?: string }).id = token.id;
       }
       return session;
     },

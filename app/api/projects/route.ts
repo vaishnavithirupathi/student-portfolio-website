@@ -7,7 +7,7 @@ export async function GET() {
     const db = client.db('student_portfolio');
     const projects = await db.collection('projects').find({}).toArray();
     return NextResponse.json({ projects });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
   }
 }

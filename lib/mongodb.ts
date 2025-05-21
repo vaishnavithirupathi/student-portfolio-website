@@ -14,20 +14,23 @@ const options: MongoClientOptions = {
 };
 
 declare global {
-  var _mongoClientPromise: Promise<MongoClient> | undefined;
+  let _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
 let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === 'development') {
+  // @ts-expect-error: Accessing global variable for MongoDB client promise in development
   if (!global._mongoClientPromise) {
     const client = new MongoClient(uri, options);
+    // @ts-expect-error: Setting global variable for MongoDB client promise in development
     global._mongoClientPromise = client.connect()
       .catch(err => {
         console.error('Failed to connect to MongoDB:', err);
         throw err;
       });
   }
+  // @ts-expect-error: Using global variable for MongoDB client promise in development
   clientPromise = global._mongoClientPromise;
 } else {
   const client = new MongoClient(uri, options);

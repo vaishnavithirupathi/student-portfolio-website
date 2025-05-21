@@ -101,7 +101,7 @@ export default async function PortfolioPage() {
     <div className="flex flex-col items-center min-h-[calc(100vh-64px)] bg-gray-50">
       <div className="w-full max-w-4xl px-2 sm:px-4 py-6 sm:py-8">
         <h1 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">
-          {user.name}'s Portfolio
+          {user.name}&apos;s Portfolio
         </h1>
 
         {/* Profile Section */}
