@@ -26,7 +26,7 @@ A full-stack web application for students to create and manage their digital por
 
 1. **Clone the Repository**
    ```powershell
-   git clone <your-repo-url>
+   git clone https://github.com/vaishnavithirupathi/student-portfolio-website/
    cd student-portfolio-site
    ```
 2. **Install Dependencies**
