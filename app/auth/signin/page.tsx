@@ -17,14 +17,12 @@ export default function SignInPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
       const result = await signIn('credentials', {
         redirect: false,
         email: formData.email,
         password: formData.password,
       });
-
       if (result?.error) {
         setError('Invalid email or password');
       } else {
@@ -51,46 +49,38 @@ export default function SignInPage() {
               Email
             </label>
             <input
-              type="email"
               id="email"
               name="email"
+              type="email"
+              autoComplete="email"
               required
+              className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base sm:text-lg py-3 px-4"
-              autoComplete="email"
-              aria-label="Email address"
+              disabled={loading}
             />
           </div>
-
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
-              type="password"
               id="password"
               name="password"
+              type="password"
+              autoComplete="current-password"
               required
+              className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base sm:text-lg py-3 px-4"
-              autoComplete="current-password"
-              aria-label="Password"
+              disabled={loading}
             />
           </div>
-
-          {error && (
-            <div className="text-red-500 text-sm text-center">
-              {error}
-            </div>
-          )}
-
+          {error && <p className="text-red-600 text-sm text-center">{error}</p>}
           <button
             type="submit"
+            className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
             disabled={loading}
-            className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-base sm:text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 transition-colors"
-            aria-label="Sign in"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>

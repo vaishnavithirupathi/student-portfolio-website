@@ -12,7 +12,6 @@ interface ProjectCardProps {
 const ProjectCard = ({ _id, title, description, link, technologies, createdAt }: ProjectCardProps) => {
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this project?')) return;
-
     try {
       const res = await fetch(`/api/projects/delete?id=${_id}`, {
         method: 'DELETE',
@@ -27,7 +26,6 @@ const ProjectCard = ({ _id, title, description, link, technologies, createdAt }:
       alert('Failed to delete project');
     }
   };
-
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="p-6">
@@ -47,36 +45,31 @@ const ProjectCard = ({ _id, title, description, link, technologies, createdAt }:
           <div className="mb-4">
             <div className="flex flex-wrap gap-2">
               {technologies.split(',').map((tech, index) => (
-                <span 
-                  key={index}
-                  className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm"
-                >
+                <span key={index} className="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">
                   {tech.trim()}
                 </span>
               ))}
             </div>
           </div>
         )}
+        <div className="text-sm text-gray-500">
+          {createdAt && typeof createdAt === 'string' && !isNaN(Date.parse(createdAt))
+            ? new Date(createdAt).getFullYear()
+            : (createdAt instanceof Date && !isNaN(createdAt.getTime())
+                ? createdAt.getFullYear()
+                : (typeof createdAt === 'string'
+                    ? new Date(createdAt).toISOString().slice(0, 10)
+                    : 'Unknown'))}
+        </div>
         {link && (
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 transition-colors duration-200"
+            className="block mt-4 text-indigo-600 hover:underline text-sm"
           >
             View Project
           </a>
-        )}
-        {createdAt && (
-          <p className="text-gray-500 text-sm mt-4">
-            Created on: {typeof createdAt === 'string' && !isNaN(Date.parse(createdAt))
-              ? new Date(createdAt).getFullYear()
-              : (createdAt instanceof Date && !isNaN(createdAt.getTime())
-                  ? createdAt.getFullYear()
-                  : (typeof createdAt === 'string'
-                      ? new Date(createdAt).toISOString().slice(0, 10)
-                      : ''))}
-          </p>
         )}
       </div>
     </div>

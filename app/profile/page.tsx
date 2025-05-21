@@ -49,76 +49,83 @@ export default function ProfilePage() {
       <h1 className="text-3xl font-bold mb-8 text-center">Edit Profile</h1>
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-lg">
         <div>
-          <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Bio</label>
+          <label htmlFor="bio" className="block text-sm font-medium text-gray-700">
+            Bio
+          </label>
           <textarea
             id="bio"
             name="bio"
-            rows={4}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="Tell us about yourself..."
+            rows={3}
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             value={formData.bio}
             onChange={handleChange}
+            disabled={loading}
           />
         </div>
-
         <div>
-          <label htmlFor="skills" className="block text-sm font-medium text-gray-700">Skills</label>
+          <label htmlFor="skills" className="block text-sm font-medium text-gray-700">
+            Skills (comma separated)
+          </label>
           <input
-            type="text"
             id="skills"
             name="skills"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="JavaScript, React, Node.js, etc."
+            type="text"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             value={formData.skills}
             onChange={handleChange}
+            disabled={loading}
           />
         </div>
-
-        <div>
-          <label htmlFor="githubUrl" className="block text-sm font-medium text-gray-700">GitHub URL</label>
-          <input
-            type="url"
-            id="githubUrl"
-            name="githubUrl"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="https://github.com/yourusername"
-            value={formData.githubUrl}
-            onChange={handleChange}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="githubUrl" className="block text-sm font-medium text-gray-700">
+              GitHub URL
+            </label>
+            <input
+              id="githubUrl"
+              name="githubUrl"
+              type="url"
+              className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              value={formData.githubUrl}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
+          <div>
+            <label htmlFor="linkedinUrl" className="block text-sm font-medium text-gray-700">
+              LinkedIn URL
+            </label>
+            <input
+              id="linkedinUrl"
+              name="linkedinUrl"
+              type="url"
+              className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              value={formData.linkedinUrl}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
+          <div>
+            <label htmlFor="twitterUrl" className="block text-sm font-medium text-gray-700">
+              Twitter URL
+            </label>
+            <input
+              id="twitterUrl"
+              name="twitterUrl"
+              type="url"
+              className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              value={formData.twitterUrl}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="linkedinUrl" className="block text-sm font-medium text-gray-700">LinkedIn URL</label>
-          <input
-            type="url"
-            id="linkedinUrl"
-            name="linkedinUrl"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="https://linkedin.com/in/yourusername"
-            value={formData.linkedinUrl}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="twitterUrl" className="block text-sm font-medium text-gray-700">Twitter URL</label>
-          <input
-            type="url"
-            id="twitterUrl"
-            name="twitterUrl"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="https://twitter.com/yourusername"
-            value={formData.twitterUrl}
-            onChange={handleChange}
-          />
-        </div>
-
         <button
           type="submit"
+          className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
           disabled={loading}
-          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          {loading ? 'Saving...' : 'Save Profile'}
+          {loading ? 'Saving...' : 'Save Changes'}
         </button>
       </form>
     </div>

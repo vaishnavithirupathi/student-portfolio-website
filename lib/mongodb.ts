@@ -14,15 +14,12 @@ const options: MongoClientOptions = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
 let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR
   if (!global._mongoClientPromise) {
     const client = new MongoClient(uri, options);
     global._mongoClientPromise = client.connect()
@@ -33,7 +30,6 @@ if (process.env.NODE_ENV === 'development') {
   }
   clientPromise = global._mongoClientPromise;
 } else {
-  // In production mode, it's best to not use a global variable
   const client = new MongoClient(uri, options);
   clientPromise = client.connect()
     .catch(err => {
@@ -42,5 +38,4 @@ if (process.env.NODE_ENV === 'development') {
     });
 }
 
-// Export a module-scoped MongoClient promise
 export default clientPromise;

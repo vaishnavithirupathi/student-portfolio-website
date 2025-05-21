@@ -4,7 +4,6 @@ import AddBlogForm from '@/app/components/AddBlogForm';
 
 export default async function AddBlogPage() {
   const session = await getServerSession(authOptions);
-
   if (!session) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
@@ -15,7 +14,6 @@ export default async function AddBlogPage() {
       </div>
     );
   }
-
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">

@@ -48,19 +48,19 @@ export default function AddEducationForm() {
     <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-lg">
       <div>
         <label htmlFor="institution" className="block text-sm font-medium text-gray-700">
-          Institution Name
+          Institution
         </label>
         <input
           type="text"
           id="institution"
           name="institution"
-          required
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
           value={formData.institution}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          required
+          disabled={loading}
         />
       </div>
-
       <div>
         <label htmlFor="degree" className="block text-sm font-medium text-gray-700">
           Degree
@@ -69,14 +69,13 @@ export default function AddEducationForm() {
           type="text"
           id="degree"
           name="degree"
-          required
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
           value={formData.degree}
           onChange={handleChange}
-          placeholder="e.g., Bachelor's, Master's, Ph.D."
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          required
+          disabled={loading}
         />
       </div>
-
       <div>
         <label htmlFor="field" className="block text-sm font-medium text-gray-700">
           Field of Study
@@ -85,14 +84,13 @@ export default function AddEducationForm() {
           type="text"
           id="field"
           name="field"
-          required
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
           value={formData.field}
           onChange={handleChange}
-          placeholder="e.g., Computer Science, Mathematics"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          required
+          disabled={loading}
         />
       </div>
-
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="startYear" className="block text-sm font-medium text-gray-700">
@@ -101,45 +99,41 @@ export default function AddEducationForm() {
           <select
             id="startYear"
             name="startYear"
-            required
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
             value={formData.startYear}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+            required
+            disabled={loading}
           >
-            <option value="">Select Year</option>
-            {years.map(year => (
-              <option key={year} value={year}>
-                {year}
-              </option>
+            <option value="">Select</option>
+            {years.map((year) => (
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
         </div>
-
         <div>
           <label htmlFor="endYear" className="block text-sm font-medium text-gray-700">
-            End Year (or expected)
+            End Year (optional)
           </label>
           <select
             id="endYear"
             name="endYear"
+            className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
             value={formData.endYear}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+            disabled={loading}
           >
-            <option value="">Present/Expected</option>
-            {years.map(year => (
-              <option key={year} value={year}>
-                {year}
-              </option>
+            <option value="">Select</option>
+            {years.map((year) => (
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
         </div>
       </div>
-
       <button
         type="submit"
+        className="w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
         disabled={loading}
-        className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400"
       >
         {loading ? 'Adding...' : 'Add Education'}
       </button>

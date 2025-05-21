@@ -5,7 +5,6 @@ export async function initializeDatabase() {
     const client = await clientPromise;
     const db = client.db('student_portfolio');
 
-    // Create collections with validation
     await db.createCollection('users', {
       validator: {
         $jsonSchema: {
@@ -140,7 +139,6 @@ export async function initializeDatabase() {
       }
     });
 
-    // Create indexes
     await db.collection('users').createIndexes([
       { key: { email: 1 }, unique: true },
       { key: { createdAt: 1 } }

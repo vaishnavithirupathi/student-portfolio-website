@@ -23,6 +23,7 @@ export default function AddProjectForm() {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
+        router.push('/portfolio');
         router.refresh();
         setFormData({ title: '', description: '', link: '', technologies: '' });
       } else {
@@ -49,13 +50,13 @@ export default function AddProjectForm() {
           type="text"
           id="title"
           name="title"
-          required
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           value={formData.title}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          required
+          disabled={loading}
         />
       </div>
-
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">
           Description
@@ -63,48 +64,46 @@ export default function AddProjectForm() {
         <textarea
           id="description"
           name="description"
-          required
+          rows={4}
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           value={formData.description}
           onChange={handleChange}
-          rows={3}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          required
+          disabled={loading}
         />
       </div>
-
-      <div>
-        <label htmlFor="technologies" className="block text-sm font-medium text-gray-700">
-          Technologies (comma-separated)
-        </label>
-        <input
-          type="text"
-          id="technologies"
-          name="technologies"
-          value={formData.technologies}
-          onChange={handleChange}
-          placeholder="React, TypeScript, Node.js"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-        />
-      </div>
-
       <div>
         <label htmlFor="link" className="block text-sm font-medium text-gray-700">
-          Project Link
+          Project Link (optional)
         </label>
         <input
           type="url"
           id="link"
           name="link"
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           value={formData.link}
           onChange={handleChange}
-          placeholder="https://..."
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          disabled={loading}
         />
       </div>
-
+      <div>
+        <label htmlFor="technologies" className="block text-sm font-medium text-gray-700">
+          Technologies (comma separated)
+        </label>
+        <input
+          type="text"
+          id="technologies"
+          name="technologies"
+          className="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          value={formData.technologies}
+          onChange={handleChange}
+          disabled={loading}
+        />
+      </div>
       <button
         type="submit"
+        className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
         disabled={loading}
-        className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400"
       >
         {loading ? 'Adding...' : 'Add Project'}
       </button>

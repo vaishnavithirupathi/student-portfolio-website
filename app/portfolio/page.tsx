@@ -79,76 +79,108 @@ export default async function PortfolioPage() {
     .find({ userId: user._id })
     .sort({ createdAt: -1 })
     .toArray() as ProjectDocument[];
-  
   const blogs = await db.collection('blogs')
     .find({ userId: user._id })
     .sort({ createdAt: -1 })
     .toArray() as BlogDocument[];
-  
   const education = await db.collection('education')
     .find({ userId: user._id })
     .sort({ startYear: -1 })
     .toArray() as EducationDocument[];
 
-  // Serialize the documents
+  // Profile details
+  const profileBio = user.bio || '';
+  const profileSkills = Array.isArray(user.skills) ? user.skills : (typeof user.skills === 'string' ? user.skills.split(',').map((s: string) => s.trim()) : []);
+  const socialLinks = user.socialLinks || {};
+
   const serializedProjects = projects.map(serializeDocument);
   const serializedBlogs = blogs.map(serializeDocument);
   const serializedEducation = education.map(serializeDocument);
 
   return (
-    <div className="max-w-7xl mx-auto px-2 sm:px-4 py-6 sm:py-8">
-      <h1 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">
-        {user.name}'s Portfolio
-      </h1>
+    <div className="flex flex-col items-center min-h-[calc(100vh-64px)] bg-gray-50">
+      <div className="w-full max-w-4xl px-2 sm:px-4 py-6 sm:py-8">
+        <h1 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">
+          {user.name}'s Portfolio
+        </h1>
 
-      <div className="grid gap-8 sm:gap-12">
-        <section>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Projects</h2>
-          {serializedProjects.length === 0 ? (
-            <p className="text-gray-500 text-center">No projects added yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {serializedProjects.map((project) => (
-                <ProjectCard 
-                  key={project._id}
-                  {...project}
-                />
+        {/* Profile Section */}
+        <section className="bg-white rounded-xl shadow-md p-6 sm:p-8 flex flex-col items-center mb-12 w-full">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">Profile</h2>
+          {profileBio && <p className="mb-4 text-gray-700 text-center max-w-2xl">{profileBio}</p>}
+          {profileSkills.length > 0 && (
+            <div className="mb-4 flex flex-wrap justify-center gap-2">
+              {profileSkills.map((skill: string, idx: number) => (
+                <span key={idx} className="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">
+                  {skill}
+                </span>
               ))}
+            </div>
+          )}
+          {(socialLinks.github || socialLinks.linkedin || socialLinks.twitter) && (
+            <div className="flex flex-wrap justify-center gap-4 mt-2">
+              {socialLinks.github && (
+                <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline text-sm">GitHub</a>
+              )}
+              {socialLinks.linkedin && (
+                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline text-sm">LinkedIn</a>
+              )}
+              {socialLinks.twitter && (
+                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">Twitter</a>
+              )}
             </div>
           )}
         </section>
 
-        <section>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Blog Posts</h2>
-          {serializedBlogs.length === 0 ? (
-            <p className="text-gray-500 text-center">No blog posts added yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {serializedBlogs.map((blog) => (
-                <BlogCard 
-                  key={blog._id}
-                  {...blog}
-                />
-              ))}
-            </div>
-          )}
-        </section>
+        <div className="flex flex-col gap-12 w-full">
+          <section className="bg-white rounded-xl shadow-md p-6 sm:p-8 flex flex-col items-center">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">Projects</h2>
+            {serializedProjects.length === 0 ? (
+              <p className="text-gray-500 text-center">No projects added yet.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
+                {serializedProjects.map((project) => (
+                  <ProjectCard 
+                    key={project._id}
+                    {...project}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
 
-        <section>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Education</h2>
-          {serializedEducation.length === 0 ? (
-            <p className="text-gray-500 text-center">No education details added yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {serializedEducation.map((edu) => (
-                <EducationCard 
-                  key={edu._id}
-                  {...edu}
-                />
-              ))}
-            </div>
-          )}
-        </section>
+          <section className="bg-white rounded-xl shadow-md p-6 sm:p-8 flex flex-col items-center">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">Blog Posts</h2>
+            {serializedBlogs.length === 0 ? (
+              <p className="text-gray-500 text-center">No blog posts added yet.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
+                {serializedBlogs.map((blog) => (
+                  <BlogCard 
+                    key={blog._id}
+                    {...blog}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section className="bg-white rounded-xl shadow-md p-6 sm:p-8 flex flex-col items-center">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 text-center">Education</h2>
+            {serializedEducation.length === 0 ? (
+              <p className="text-gray-500 text-center">No education details added yet.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
+                {serializedEducation.map((edu) => (
+                  <EducationCard 
+                    key={edu._id}
+                    {...edu}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </div>
   );

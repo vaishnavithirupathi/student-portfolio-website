@@ -6,23 +6,17 @@ import { authOptions } from '@/lib/auth';
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    
     if (!session?.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
     const body = await req.json();
     const { bio, skills, githubUrl, linkedinUrl, twitterUrl } = body;
-    
     const client = await clientPromise;
     const db = client.db('student_portfolio');
-    
     const user = await db.collection('users').findOne({ email: session.user.email });
-
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
-
     await db.collection('users').updateOne(
       { email: session.user.email },
       { 
@@ -38,7 +32,6 @@ export async function POST(req: NextRequest) {
         }
       }
     );
-
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });

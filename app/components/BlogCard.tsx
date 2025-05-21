@@ -10,7 +10,6 @@ interface BlogCardProps {
 const BlogCard = ({ _id, title, content, createdAt }: BlogCardProps) => {
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this blog post?')) return;
-
     try {
       const res = await fetch(`/api/blogs/delete?id=${_id}`, {
         method: 'DELETE',
@@ -25,7 +24,6 @@ const BlogCard = ({ _id, title, content, createdAt }: BlogCardProps) => {
       alert('Failed to delete blog post');
     }
   };
-
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="p-6">
@@ -48,7 +46,7 @@ const BlogCard = ({ _id, title, content, createdAt }: BlogCardProps) => {
                 ? createdAt.getFullYear()
                 : (typeof createdAt === 'string'
                     ? new Date(createdAt).toISOString().slice(0, 10)
-                    : ''))}
+                    : 'Unknown'))}
         </div>
       </div>
     </div>

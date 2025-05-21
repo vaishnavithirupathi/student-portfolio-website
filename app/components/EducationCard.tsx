@@ -12,7 +12,6 @@ interface EducationCardProps {
 const EducationCard = ({ _id, institution, degree, field, startYear, endYear }: EducationCardProps) => {
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this education record?')) return;
-
     try {
       const res = await fetch(`/api/education/delete?id=${_id}`, {
         method: 'DELETE',
@@ -27,7 +26,6 @@ const EducationCard = ({ _id, institution, degree, field, startYear, endYear }: 
       alert('Failed to delete education record');
     }
   };
-
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="p-6">
@@ -48,17 +46,10 @@ const EducationCard = ({ _id, institution, degree, field, startYear, endYear }: 
         <div className="text-sm text-gray-500">
           {startYear && !isNaN(Number(startYear)) && startYear.length === 4
             ? startYear
-            : (typeof startYear === 'string' && !isNaN(Date.parse(startYear))
-                ? new Date(startYear).getFullYear()
-                : startYear)}
-          {' - '}
-          {endYear
-            ? (!isNaN(Number(endYear)) && endYear.length === 4
-                ? endYear
-                : (typeof endYear === 'string' && !isNaN(Date.parse(endYear))
-                    ? new Date(endYear).getFullYear()
-                    : endYear))
-            : 'Present'}
+            : 'Unknown'}
+          {endYear && endYear.length === 4 && !isNaN(Number(endYear))
+            ? ` - ${endYear}`
+            : ''}
         </div>
       </div>
     </div>
